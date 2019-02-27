@@ -13,11 +13,9 @@ function PostContainer(props) {
                     </div>
                     <div className='postContent'>
                         <img src={post.imageUrl} />
-                        <p>Heart</p>
-                        <p>Comment</p>
-                        <p>{post.likes}</p>
                     </div>
                     <CommentSection 
+                    likes={post.likes}
                     comments={post.comments} 
                     // handleCommentChange={post.handleCommentChange}
                     />
