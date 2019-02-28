@@ -5,7 +5,7 @@ import CommentSection from '../Comment Section/CommentSection'
 function PostContainer(props) {
     return (
         <div>
-            {props.postData.map((post, i) => (
+            {props.postDataSet.map((post, i) => (
                 <div className='postContainer' key={i}>
                     <div className='postHeader'>
                         <img src={post.thumbnailUrl} alt={post.username}/>

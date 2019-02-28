@@ -3,6 +3,9 @@ import './App.css';
 import dummyData from './dummy-data.js'
 import PostContainer from './components/Post Container/PostContainer'
 import SearchBar from './components/SearchBar/SearchBar'
+import PostsPage from './components/Post Container/PostsPage'
+import withAuthenticate from './authentication/authenticate'
+import LoginPage from './components/Login/Login'
 
 class App extends Component {
   constructor() {
@@ -58,17 +61,19 @@ class App extends Component {
     return (
       <div className="App">
         <SearchBar searchPosts={this.searchBarHandler}/>
-        <PostContainer 
-        postData={
-          this.state.searchData.length > 0 ?
-          this.state.searchData :
-          this.state.dummyData
-        }
-        handleCommentChange={this.handleCommentChange}
+        <PostsPage 
+          postData={
+            this.state.searchData.length > 0 ?
+            this.state.searchData :
+            this.state.dummyData
+          }
+          handleCommentChange={this.handleCommentChange}
         />
       </div>
     );
   }
 }
+
+const ComponentFromWithAuthenticate = withAuthenticate(App)(LoginPage);
 
 export default App;
