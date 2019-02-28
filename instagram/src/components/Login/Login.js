@@ -2,7 +2,7 @@ import React from 'react'
 
 
 const Login = PostsPage => LoginPage =>
-class extends Component {
+class extends React.Component {
     constructor(props) {
         super(props);
             this.state = {
@@ -11,19 +11,19 @@ class extends Component {
             }
     }
 
-    const changeUsername = () => {
+    changeUsername = () => {
         this.setState({
             username: this.state.username
         });
     }
 
-    const changePassword = () => {
+    changePassword = () => {
         this.setState({
             password: this.state.password
         });
     }
     
-    const loginButtonPushed = () => {
+    loginButtonPushed = () => {
         this.setState({
             username: this.state.username
         });
@@ -33,8 +33,18 @@ class extends Component {
         return (
         <form>
             <h1>Logoin</h1>
-            <input type='text' name='username' value ={this.username} onChange={this.changeUsername} placeholder='Username' />
-            <input type='text' name='password' value ={this.password} onChange={this.changePassword} placeholder='Password' />
+            <input 
+                type='text' 
+                name='username' 
+                value ={this.username} 
+                onChange={this.changeUsername}
+                placeholder='Username' />
+            <input 
+                type='text' 
+                name='password' 
+                value ={this.password} 
+                onChange={this.changePassword}
+                placeholder='Password' />
             <button onClick={this.loginButtonPushed} >Login</button>
         </form>
         )
