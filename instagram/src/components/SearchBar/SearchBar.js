@@ -1,17 +1,20 @@
 import React from 'react'
 
 
-function SearchBar(props) {
+const SearchBar = props => {
     return (
         <div>
-            SearchBar Here
+            <form>
+                <input 
+                type='search'
+                name='search'
+                value={props.username}
+                onChange={props.searchPosts}
+                placeholder='Search'
+                />
+            </form>
         </div>
     );
 }
-
-
-
-
-
 
 export default SearchBar;

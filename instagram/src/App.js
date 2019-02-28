@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import dummyData from './dummy-data.js'
 import PostContainer from './components/Post Container/PostContainer'
@@ -9,7 +8,9 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      dummyData: []
+      dummyData: [],
+      searchData: [],
+      // comment: ''
     }
   }
 
@@ -18,17 +19,51 @@ class App extends Component {
     this.setState({ dummyData: dummyData })
   }
 
-  // handleCommentChange = eTargetValue => {
-  //   this.setState({ comment: eTargetValue })
-  // }
+  searchBarHandler = e => {
+    const posts = this.state.dummyData.filter( post => {
+      if (post.username.includes(e.target.value)) {
+        return post
+      }
+    });
+    this.setState({
+      searchData: posts
+    })
+  }
 
+  addNewComment = e => {
+    e.preventDefault();
+    this.setState({
+      comments: [
+        ...this.state.dummyData,
+        {
+          text: this.state.dummyData.comments,
+          username: 'Loser'
+        }
+      ],
+      comment: ''
+    })
+  }
+
+  handleCommentChange = e => {
+    this.setState({ comments: e.target.value })
+  }
+
+  increaseLikes = () => {
+    this.setState({
+      likes: this.state.likes +1
+    })
+  }
 
   render() {
     return (
       <div className="App">
-        <SearchBar />
+        <SearchBar searchPosts={this.searchBarHandler}/>
         <PostContainer 
-        postData={this.state.dummyData} 
+        postData={
+          this.state.searchData.length > 0 ?
+          this.state.searchData :
+          this.state.dummyData
+        }
         handleCommentChange={this.handleCommentChange}
         />
       </div>

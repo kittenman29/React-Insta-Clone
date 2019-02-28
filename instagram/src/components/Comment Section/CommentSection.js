@@ -5,22 +5,25 @@ function CommentSection(props) {
     return ( 
         <>
         <div>
-            <p>Heart</p>
+            <p onClick={props.increaseLikes}>Heart</p>
             <p>Comment</p>
-            <p>{props.likes}</p>
+            <p>{props.likes} likes</p>
         </div>
         <div className='commentContainer'>
-            {props.comments.map(comment => (
-                <div>
+            {props.comments.map((comment, i) => (
+                <div className='commentContainer' key={i}>
                     <p><strong>{comment.username}</strong> {comment.text}</p>
                 </div>
             ))}
         </div>
-        <input 
-        type='text' 
-        placeholder='Add comment' 
-        value={''} 
-        onChange={''}/>
+        <form>
+            <input 
+            type='text' 
+            placeholder='Add comment' 
+            value={props.comments} 
+            onChange={props.handleCommentChange}
+            />
+        </form>
         </>
     )
 }
