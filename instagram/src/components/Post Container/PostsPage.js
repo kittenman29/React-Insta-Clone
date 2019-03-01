@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import dummyData from './dummy-data.js'
-import PostContainer from './components/Post Container/PostContainer'
-import SearchBar from './components/SearchBar/SearchBar'
-import withAuthenticate from './authentication/authenticate'
+import dummyData from '../../dummy-data'
+import PostContainer from '../Post Container/PostContainer'
+import SearchBar from '../SearchBar/SearchBar'
 
-class App extends Component {
+
+class PostPage extends Component {
   constructor() {
     super();
     this.state = {
       dummyData: [],
-      searchData: [],
-      // comment: ''
+      searchData: []
     }
   }
 
@@ -30,23 +29,28 @@ class App extends Component {
     })
   }
 
-  addNewComment = e => {
+  addNewComment = (e, username, commentText) => {
     e.preventDefault();
+    const newComment={
+        username: 'Name',
+        text: commentText
+    }
     this.setState({
-      comments: [
-        ...this.state.dummyData,
-        {
-          text: this.state.dummyData.comments,
-          username: 'Loser'
+      dummyData: this.state.dummyData.map(post => {
+          console.log(post.username, username)
+        if(post.username===username){
+            return {
+                ...post,
+                comments: [...post.comments, newComment]
+            }
+        } else {
+            return post;
         }
-      ],
-      comment: ''
+      })
     })
   }
 
-  handleCommentChange = e => {
-    this.setState({ comments: e.target.value })
-  }
+  
 
   increaseLikes = () => {
     this.setState({
@@ -59,11 +63,12 @@ class App extends Component {
       <div className="App">
         <SearchBar searchPosts={this.searchBarHandler}/>
         <PostContainer 
-          postData={
+          postDataSet={
             this.state.searchData.length > 0 ?
             this.state.searchData :
             this.state.dummyData
           }
+          addNewComment={this.addNewComment}
           handleCommentChange={this.handleCommentChange}
         />
       </div>
@@ -71,6 +76,5 @@ class App extends Component {
   }
 }
 
-const ComponentFromWithAuthenticate = withAuthenticate(App)(LoginPage);
 
-export default App;
+export default PostPage;

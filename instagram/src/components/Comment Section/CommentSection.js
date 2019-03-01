@@ -1,31 +1,69 @@
 import React from 'react';
+import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
-function CommentSection(props) {
-    console.log(props.comments);
+const CommentContainer = styled.div`
+    text-align: left;
+    margin-left: 30%;
+`;
+
+const Comment = styled.div`
+    color: red;
+`;
+
+
+class CommentSection extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+          comment: ''
+        }
+      }
+
+      handleCommentChange = e => {
+        this.setState({ comment: e.target.value })
+      }
+
+      handleSubmit = e => {
+          this.props.addNewComment(e, this.props.username, this.state.comment)
+          this.setState({
+              comment: ''
+          })
+      }
+
+    render() {  
     return ( 
         <>
         <div>
-            <p onClick={props.increaseLikes}>Heart</p>
+            <p onClick={this.props.increaseLikes}>Heart</p>
             <p>Comment</p>
-            <p>{props.likes} likes</p>
+            <p>{this.props.likes} likes</p>
         </div>
-        <div className='commentContainer'>
-            {props.comments.map((comment, i) => (
-                <div className='commentContainer' key={i}>
+        <CommentContainer>
+            {this.props.comments.map((comment, i) => (
+                <Comment key={i}>
                     <p><strong>{comment.username}</strong> {comment.text}</p>
-                </div>
+                </Comment>
             ))}
-        </div>
-        <form>
+        </CommentContainer>
+        <form onSubmit={this.handleSubmit}>
             <input 
             type='text' 
             placeholder='Add comment' 
-            value={props.comments} 
-            onChange={props.handleCommentChange}
+            value={this.state.comment} 
+            onChange={this.handleCommentChange}
             />
         </form>
         </>
     )
+}
+}
+
+CommentSection.propTypes = {
+    comment: PropTypes.arrayOf(PropTypes.shape({
+        username: PropTypes.string,
+        text: PropTypes.string
+    }))
 }
 
 export default CommentSection;
